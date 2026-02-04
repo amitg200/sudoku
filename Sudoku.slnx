@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Sudoku.csproj" />
+  </Folder>
+</Solution>
