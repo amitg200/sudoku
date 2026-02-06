@@ -2,7 +2,7 @@ class InputConsole
 {
     public string ReadInput()
     {
-        String input;
+        String? input;
         do
         {
             Console.WriteLine("Hello, please type in the sudoku:");
