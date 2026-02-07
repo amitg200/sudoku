@@ -6,7 +6,8 @@ static class SudokuConstants
     public static readonly Dictionary<char, int> InputSymbolMap = 
     new Dictionary<char, int>
     {
-        { '0', 0 },
+        { '0', 0 }, 
+// this can later be changed to { '.', 0 } if needed(the input changes format) and the code still will work
         { '1', 1 },
         { '2', 2 },
         { '3', 3 },
@@ -17,4 +18,5 @@ static class SudokuConstants
         { '8', 8 },
         { '9', 9 }
     };
+    public static readonly int[] AllValues = InputSymbolMap.Values.ToArray();
 }

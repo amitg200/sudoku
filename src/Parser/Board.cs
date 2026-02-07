@@ -1,4 +1,4 @@
-class Board
+public class Board
 {
     private int[,] board;
     
@@ -10,15 +10,26 @@ class Board
     {
         int sub = SudokuConstants.SubGridSize;
 
-        return board[(subGridIndex / sub) * sub + (cellIndex / sub),
-                     (subGridIndex % sub) * sub + (cellIndex % sub)];
+        int startRow = (subGridIndex / sub) * sub;
+        int startCol = (subGridIndex % sub) * sub;
+
+        int rowOffset = cellIndex / sub;
+        int colOffset = cellIndex % sub;
+
+        return board[startRow + rowOffset, startCol + colOffset];
     }
+
     public void SetCellInSubGrid(int subGridIndex, int cellIndex, int value)
     {
         int sub = SudokuConstants.SubGridSize;
 
-        board[(subGridIndex / sub) * sub + (cellIndex / sub),
-              (subGridIndex % sub) * sub + (cellIndex % sub)] = value;
+        int startRow = (subGridIndex / sub) * sub;
+        int startCol = (subGridIndex % sub) * sub;
+
+        int rowOffset = cellIndex / sub;
+        int colOffset = cellIndex % sub;
+
+        board[startRow + rowOffset, startCol + colOffset] = value;
     }
     public int GetCellByRowAndCol(int row, int col)
     {
