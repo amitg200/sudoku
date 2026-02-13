@@ -1,4 +1,4 @@
-class InputConsole
+class InputConsole : IInput
 {
     public string ReadInput()
     {

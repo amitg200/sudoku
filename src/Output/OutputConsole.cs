@@ -1,4 +1,4 @@
-class OutputConsole
+class OutputConsole : IOutput
 {
     public void Print(string output)
     {

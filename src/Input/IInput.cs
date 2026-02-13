@@ -1,0 +1,4 @@
+interface IInput
+{
+    string ReadInput();
+}
