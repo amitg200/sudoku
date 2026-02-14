@@ -1,4 +1,4 @@
-class BoardValidation
+public class BoardValidation
 {
     public void Validate(Board board)
     {

@@ -1,4 +1,4 @@
-class Parser
+public class Parser
 {
     public Board Parse(string input)
     {

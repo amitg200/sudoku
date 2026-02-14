@@ -2,4 +2,5 @@
   <Folder Name="/src/">
     <Project Path="src/Sudoku.csproj" />
   </Folder>
+  <Project Path="Sudoku.Tests/Sudoku.Tests.csproj" />
 </Solution>

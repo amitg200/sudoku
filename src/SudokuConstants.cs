@@ -1,4 +1,4 @@
-static class SudokuConstants
+public static class SudokuConstants
 {
     public const int BoardSize = 9;
     public const int SubGridSize = 3;   

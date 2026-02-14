@@ -1,6 +1,6 @@
 using System.Text;
 
-class BoardFormatter
+public class BoardFormatter
 {
     public string Format(Board board)
     {

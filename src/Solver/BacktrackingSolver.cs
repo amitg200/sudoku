@@ -1,4 +1,4 @@
-class BacktrackingSolver : ISudokuSolver
+public class BacktrackingSolver : ISudokuSolver
 {
     private readonly ICellSelector _cellSelector = new MrvCellSelector();
     private readonly DomainManager _domainManager = new DomainManager();

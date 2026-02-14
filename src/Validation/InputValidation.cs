@@ -1,4 +1,4 @@
-class InputValidation
+public class InputValidation
 {
     public void Validate(string input)
     {
