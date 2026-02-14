@@ -3,7 +3,7 @@ public class BacktrackingSolver : ISudokuSolver
     private readonly ICellSelector _cellSelector = new MrvCellSelector();
     private readonly DomainManager _domainManager = new DomainManager();
     private readonly BoardValidation _validator = new BoardValidation();
-
+    private readonly Stack<DomainManager.DomainChange> _changeStack = new();
     public Board Solve(Board board)
     {
         _domainManager.InitializeDomains(board);
@@ -41,20 +41,18 @@ public class BacktrackingSolver : ISudokuSolver
         }
 
         List<int> currentCellDomain = _domainManager.GetDomain(row, col);
-        var possibleValues = currentCellDomain.ToList();
-
-        foreach (int value in possibleValues)
+        for (int i = 0; i < currentCellDomain.Count; i++)
         {
-            var domainChanges = _domainManager.CreateChangeStack();
+            int snapshot = _changeStack.Count;
 
-            board.SetCellByRowAndCol(row, col,value);
+            board.SetCellByRowAndCol(row, col,currentCellDomain[i]);
 
             _domainManager.ClearDomain(row, col);
 
-            if (!_domainManager.DomainUpdate(board, row, col, domainChanges))
+            if (!_domainManager.DomainUpdate(board, row, col, _changeStack))
             {
                 board.SetCellByRowAndCol(row, col, 0);
-                _domainManager.UndoDomainUpdate(domainChanges);
+                _domainManager.UndoDomainUpdate(_changeStack, snapshot);
                 _domainManager.SetDomain(row, col, currentCellDomain);
                 continue;
             }
@@ -63,7 +61,7 @@ public class BacktrackingSolver : ISudokuSolver
                 return true;
 
             board.SetCellByRowAndCol(row, col, 0);
-            _domainManager.UndoDomainUpdate(domainChanges);
+            _domainManager.UndoDomainUpdate(_changeStack, snapshot);
             _domainManager.SetDomain(row, col, currentCellDomain);
         }
         return false;

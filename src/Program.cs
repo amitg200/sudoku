@@ -7,6 +7,7 @@ class Program
         {
             IInput inputConsole = new InputConsole();
             string data = inputConsole.ReadInput();
+            if (data.ToLower() == "quit") break;
 
             var stopwatch = Stopwatch.StartNew();// start timer
             string output = "";

@@ -81,24 +81,24 @@ public class DomainManager
 
         for (int i = 0; i < SudokuConstants.BoardSize; i++)
         {
-            if (col != i && _domains[row, i] != null && _domains[row, i].Contains(value))
+            if (i != col &&_domains[row, i] != null)
             {
-                _domains[row, i].Remove(value);
-                SaveDomainChange(domainChanges, row, i, value);             
-                if(_domains[row, i].Count == 0)
+                if (_domains[row, i].Remove(value))
                 {
-                    return false;
+                    SaveDomainChange(domainChanges, row, i, value);
+                    if (_domains[row, i].Count == 0)
+                        return false;
                 }
             }
-            if (row != i && _domains[i, col] != null && _domains[i, col].Contains(value))
+            if (i != row && _domains[i, col] != null)
             {
-                _domains[i, col].Remove(value);
-                SaveDomainChange(domainChanges, i,col , value);   
-                if(_domains[i, col].Count == 0)
+                if (_domains[i, col].Remove(value))
                 {
-                    return false;
+                    SaveDomainChange(domainChanges, i, col, value);
+                    if (_domains[i, col].Count == 0)
+                        return false;
                 }
-            }        
+            }      
         }
 
         int sub = SudokuConstants.SubGridSize; 
@@ -110,15 +110,14 @@ public class DomainManager
             {
                 int currRow = startRow + r;
                 int currCol = startCol + c;
-                if (!(currRow == row && currCol == col) &&
-                    _domains[currRow, currCol] != null &&
-                    _domains[currRow, currCol].Contains(value))
+                if ((currRow != row || currCol != col) &&
+                    _domains[currRow, currCol] != null)
                 {
-                    _domains[currRow, currCol].Remove(value);
-                    SaveDomainChange(domainChanges, currRow, currCol, value);
-                    if(_domains[currRow, currCol].Count == 0)
+                    if (_domains[currRow, currCol].Remove(value))
                     {
-                        return false;
+                        SaveDomainChange(domainChanges, currRow, currCol, value);
+                        if (_domains[currRow, currCol].Count == 0)
+                            return false;
                     }
                 }
             }
@@ -131,9 +130,9 @@ public class DomainManager
         var newChange = new DomainChange(row, col, value);
         domainChanges.Push(newChange);
     }
-    public void UndoDomainUpdate(Stack<DomainChange> domainChanges)
+    public void UndoDomainUpdate(Stack<DomainChange> domainChanges, int snapshot)
     {
-        while (domainChanges.Count != 0)
+        while (domainChanges.Count > snapshot)
         {
             DomainChange domainChange = domainChanges.Pop();
             _domains[domainChange.Row,domainChange.Col].Add(domainChange.Value);
