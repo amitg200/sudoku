@@ -1,16 +1,28 @@
 ﻿using System.Diagnostics;
-class Program
+
+/// <summary>
+/// Entry point of the Sudoku application.
+/// Responsible for orchestrating input, validation,
+/// solving, formatting, and output.
+/// </summary>
+public class Program
 {
+    /// <summary>
+    /// Main execution loop of the application.
+    /// Continuously reads Sudoku input, validates,
+    /// solves, and prints the result.
+    /// The application exits when the user types "quit".
+    /// </summary>
     static void Main()
     {
         while (true)
         {
-            IInput inputConsole = new InputConsole();
-            string data = inputConsole.ReadInput();
+            IInput input = new InputConsole();
+            string data = input.ReadInput();
             if (data.ToLower() == "quit") break;
 
             var stopwatch = Stopwatch.StartNew();// start timer
-            string output = "";
+            string outputString = "";
             try
             {
                 var inputValidation = new InputValidation();
@@ -26,10 +38,11 @@ class Program
                 Board solvedBoard = solver.Solve(boardData);
 
                 var boardFormatter = new BoardFormatter();
-                output = boardFormatter.Format(solvedBoard);
+                outputString = boardFormatter.Format(solvedBoard);
 
-                IOutput outputConsole = new OutputConsole();
-                outputConsole.Print(output);
+                IOutput output = new OutputConsole();
+                output.Print(data);
+                output.Print(outputString);
             }
             catch (Exception ex)
             {
@@ -38,7 +51,7 @@ class Program
             }
 
             stopwatch.Stop();
-            Console.WriteLine($"Time it took to solve: {stopwatch.Elapsed}\nSolved board:{output}"); 
+            Console.WriteLine($"Time it took to solve: {stopwatch.Elapsed}\nSolved board:{outputString}"); 
         }
     }
 }

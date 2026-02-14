@@ -1,5 +1,17 @@
-class OutputConsole : IOutput
+/// <summary>
+/// Console-based implementation of the <see cref="IOutput"/> interface.
+/// Responsible for displaying a formatted Sudoku board in the console.
+/// </summary>
+public class OutputConsole : IOutput
 {
+    /// <summary>
+    /// Prints the formatted Sudoku board to the console.
+    /// Empty cells are displayed using the configured empty cell symbol.
+    /// The board is visually separated into sub-grids.
+    /// </summary>
+    /// <param name="output">
+    /// A string representing the Sudoku board in row-major order.
+    /// </param>
     public void Print(string output)
     {
         int size = SudokuConstants.BoardSize;
@@ -30,5 +42,6 @@ class OutputConsole : IOutput
                     Console.WriteLine(new string('-', size + sub - 1));
             }
         }
+        Console.WriteLine();
     }
 }
